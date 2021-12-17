@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/categoria")
-public class CategoriaControlador {
+@RequestMapping("/route")
+public class RouteControlador {
 }
