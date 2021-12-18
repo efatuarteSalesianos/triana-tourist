@@ -24,6 +24,7 @@ public class CategoryDTOConverter {
         return GetCategoryListDTO.builder()
                 .id(category.getId())
                 .name(category.getName())
+                .pois(category.getSitios().stream().map(poidtoConverter::poiToGetPOIListDTO).collect(Collectors.toList()))
                 .build();
     }
 

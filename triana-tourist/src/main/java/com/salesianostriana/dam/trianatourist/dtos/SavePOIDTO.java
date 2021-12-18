@@ -3,6 +3,7 @@ package com.salesianostriana.dam.trianatourist.dtos;
 import lombok.*;
 import org.hibernate.validator.constraints.URL;
 
+import javax.persistence.Lob;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ public class SavePOIDTO {
 
     private String location;
 
+    @Lob
     private String description;
 
     @NotBlank @URL
@@ -32,4 +34,6 @@ public class SavePOIDTO {
 
     @Past
     private LocalDateTime date;
+
+    private UUID categoryId;
 }

@@ -20,7 +20,7 @@ public class POIControlador {
     private final POIServicio servicio;
 
     @PostMapping("/")
-    public ResponseEntity<POI> nuevoSitio(@Valid @RequestBody SavePOIDTO newPOI) {
+    public ResponseEntity<GetPOIDTO> nuevoSitio(@Valid @RequestBody SavePOIDTO newPOI) {
         return ResponseEntity.status(HttpStatus.CREATED).body(servicio.save(newPOI));
     }
 

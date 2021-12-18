@@ -23,15 +23,16 @@ public class POIServicio {
     private final POIRepository repositorio;
     private final POIDTOConverter dtoConverter;
 
-    public POI save(SavePOIDTO newPOI) {
-        return repositorio.save(POI.builder()
-                        .name(newPOI.getName())
-                        .location(newPOI.getLocation())
-                        .description(newPOI.getDescription())
-                        .coverPhoto(newPOI.getCoverPhoto())
-                        .photo2(newPOI.getPhoto2())
-                        .photo3(newPOI.getPhoto3())
-                        .build());
+    public GetPOIDTO save(SavePOIDTO newPOI) {
+
+        Optional<Category> categoria = categoryRepositorio.findById(newPOI.getCategoryId());
+        if (categoria.isEmpty()){
+            throw new SingleEntityNotFoundException(newPOI.getCategoryId().toString(), Category.class);
+        } else {
+            POI sitio = dtoConverter.savePOIDtoToPOI(newPOI);
+            repositorio.save(sitio);
+            return dtoConverter.savePOIDtoToGetPOIDto(newPOI, sitio);
+        }
     }
 
     public List<GetPOIListDTO> findAll() {
@@ -93,6 +94,7 @@ public class POIServicio {
             throw new SingleEntityNotFoundException(poiID.toString(), POI.class);
         } else {
             sitio.get().addCategory(categoria.get());
+            repositorio.save(sitio.get());
             return sitio.map(dtoConverter::poiToGetPOIDTO).get();
         }
     }
@@ -107,6 +109,7 @@ public class POIServicio {
             throw new SingleEntityNotFoundException(poiID.toString(), POI.class);
         } else {
             sitio.get().removeCategory(categoria.get());
+            repositorio.save(sitio.get());
         }
     }
 }
