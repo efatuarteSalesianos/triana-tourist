@@ -34,6 +34,7 @@ public class Route implements Serializable {
 
     private String name;
 
+    @ManyToMany(mappedBy="routes", fetch = FetchType.EAGER)
     private List<POI> steps = new ArrayList<>();
 
 }

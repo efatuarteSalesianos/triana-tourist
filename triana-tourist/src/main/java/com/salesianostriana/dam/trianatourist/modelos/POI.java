@@ -7,6 +7,7 @@ import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,16 +38,40 @@ public class POI implements Serializable {
     private LocalDateTime date;
 
     @ManyToOne
-    private Categoria category;
+    private Category category;
 
-    @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "poi_id",
-            foreignKey = @ForeignKey(name="FK_VISITA_POI")),
-            inverseJoinColumns = @JoinColumn(name = "route_id",
-                    foreignKey = @ForeignKey(name="FK_VISITA_ROUTE")),
-            name = "visita"
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            joinColumns = @JoinColumn(name="poi_id"),
+            inverseJoinColumns = @JoinColumn(name="route_id")
     )
-    private List<Route> routes;
+    private List<Route> routes = new ArrayList<>();
+
+    /** MÉTODOS HELPERS PARA ASOCIACIÓN CON CATEGORIA **/
+    public void addCategory(Category c) {
+        this.category = c;
+        c.getSitios().add(this);
+    }
+
+    public void removeCategory(Category c) {
+        c.getSitios().remove(this);
+        this.category = null;
+    }
+
+    /** MÉTODOS HELPERS PARA ASOCIACIÓN CON RUTA **/
+    public void addRoute(Route r) {
+        routes.add(r);
+        if(this.getRoutes() == null)
+            this.setRoutes((new ArrayList<>()));
+        if(r.getSteps() == null)
+            r.setSteps(new ArrayList<>());
+        r.getSteps().add(this);
+    }
+
+    public void removeRoute(Route r) {
+        routes.remove(r);
+        r.getSteps().remove(this);
+    }
 
 }
 

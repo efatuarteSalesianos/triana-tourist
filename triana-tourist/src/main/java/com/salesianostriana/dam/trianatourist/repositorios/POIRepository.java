@@ -7,6 +7,4 @@ import java.util.UUID;
 
 public interface POIRepository extends JpaRepository<POI, UUID> {
 
-    boolean existsByNombre(String nombre);
-
 }

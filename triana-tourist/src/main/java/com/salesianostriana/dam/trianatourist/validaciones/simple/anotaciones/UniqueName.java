@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = UniqueNameValidator.class)
 public @interface UniqueName {
 
-    String message() default "El nombre del producto debe ser único";
+    String message() default "El nombre de la categoría ya existe. Pruebe a introducir uno distinto";
 
     Class<?>[] groups() default {};
 

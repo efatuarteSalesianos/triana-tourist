@@ -7,14 +7,17 @@ import org.hibernate.annotations.Parameter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
 @Builder
-public class Categoria implements Serializable {
+public class Category implements Serializable {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -31,4 +34,7 @@ public class Categoria implements Serializable {
     private UUID id;
 
     private String name;
+
+    @OneToMany(mappedBy = "category")
+    private List<POI> sitios = new ArrayList<>();
 }
