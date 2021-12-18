@@ -1,10 +1,8 @@
 package com.salesianostriana.dam.trianatourist.controladores;
 
 import com.salesianostriana.dam.trianatourist.dtos.*;
-import com.salesianostriana.dam.trianatourist.modelos.Category;
 import com.salesianostriana.dam.trianatourist.modelos.POI;
-import com.salesianostriana.dam.trianatourist.servicios.CategoryServicio;
-import com.salesianostriana.dam.trianatourist.servicios.POIService;
+import com.salesianostriana.dam.trianatourist.servicios.POIServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +17,7 @@ import java.util.UUID;
 @RequestMapping("/poi")
 public class POIControlador {
 
-    private final POIService servicio;
+    private final POIServicio servicio;
 
     @PostMapping("/")
     public ResponseEntity<POI> nuevoSitio(@Valid @RequestBody SavePOIDTO newPOI) {
@@ -45,5 +43,18 @@ public class POIControlador {
     public ResponseEntity<?> borrarSitio(@PathVariable UUID id) {
         servicio.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/category/{id2}")
+    public ResponseEntity<GetPOIDTO> asignarCategoria(@PathVariable UUID id, @PathVariable UUID id2) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(servicio.addCategoria(id, id2));
+    }
+
+    @DeleteMapping("/{id}/category/{id2}")
+    public ResponseEntity<?> quitarCategoria(@PathVariable UUID id, @PathVariable UUID id2) {
+        servicio.removeCategoria(id, id2);
+        return ResponseEntity
+                .noContent()
+                .build();
     }
 }

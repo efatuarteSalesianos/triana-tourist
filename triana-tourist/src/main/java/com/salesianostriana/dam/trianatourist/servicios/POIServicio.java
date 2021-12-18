@@ -17,29 +17,21 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class POIService {
+public class POIServicio {
 
     private final CategoryRepositorio categoryRepositorio;
     private final POIRepository repositorio;
     private final POIDTOConverter dtoConverter;
 
     public POI save(SavePOIDTO newPOI) {
-
-        Optional<Category> categoria = categoryRepositorio.findById(newPOI.getCategoryId());
-
-        if (categoria.isEmpty()) {
-            throw new SingleEntityNotFoundException(newPOI.getCategoryId().toString(), Category.class);
-        } else {
-            return repositorio.save(POI.builder()
-                            .name(newPOI.getName())
-                            .location(newPOI.getLocation())
-                            .description(newPOI.getDescription())
-                            .coverPhoto(newPOI.getCoverPhoto())
-                            .photo2(newPOI.getPhoto2())
-                            .photo3(newPOI.getPhoto3())
-                            .category(categoryRepositorio.findById(newPOI.getCategoryId()).get())
-                            .build());
-        }
+        return repositorio.save(POI.builder()
+                        .name(newPOI.getName())
+                        .location(newPOI.getLocation())
+                        .description(newPOI.getDescription())
+                        .coverPhoto(newPOI.getCoverPhoto())
+                        .photo2(newPOI.getPhoto2())
+                        .photo3(newPOI.getPhoto3())
+                        .build());
     }
 
     public List<GetPOIListDTO> findAll() {
@@ -91,4 +83,30 @@ public class POIService {
         }
     }
 
+    public GetPOIDTO addCategoria(UUID poiID, UUID categoryId) {
+        Optional<Category> categoria = categoryRepositorio.findById(categoryId);
+        Optional<POI> sitio = repositorio.findById(poiID);
+
+        if (categoria.isEmpty()) {
+            throw new SingleEntityNotFoundException(categoryId.toString(), Category.class);
+        } else if (sitio.isEmpty()) {
+            throw new SingleEntityNotFoundException(poiID.toString(), POI.class);
+        } else {
+            sitio.get().addCategory(categoria.get());
+            return sitio.map(dtoConverter::poiToGetPOIDTO).get();
+        }
+    }
+
+    public void removeCategoria(UUID poiID, UUID categoryId) {
+        Optional<Category> categoria = categoryRepositorio.findById(categoryId);
+        Optional<POI> sitio = repositorio.findById(poiID);
+
+        if (categoria.isEmpty()) {
+            throw new SingleEntityNotFoundException(categoryId.toString(), Category.class);
+        } else if (sitio.isEmpty()) {
+            throw new SingleEntityNotFoundException(poiID.toString(), POI.class);
+        } else {
+            sitio.get().removeCategory(categoria.get());
+        }
+    }
 }
