@@ -3,6 +3,7 @@ package com.salesianostriana.dam.trianatourist.modelos;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -34,6 +35,8 @@ public class Route implements Serializable {
 
     private String name;
 
+    // Añadimos la notación en la clase modelo, ya que en el DTO de creación no añadimos POI
+    @UniqueElements(message = "{route.steps.uniqueElements}")
     @ManyToMany(mappedBy="routes", fetch = FetchType.EAGER)
     private List<POI> steps = new ArrayList<>();
 
