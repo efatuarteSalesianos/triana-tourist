@@ -38,10 +38,10 @@ public class CategoriaControlador {
         return servicio.findById(id);
     }
 
-//    @PutMapping("/{id}")
-//    public GetCategoryDTO editar(@PathVariable UUID id, @Valid @RequestBody SaveCategoryDTO category) {
-//        return servicio.edit(id, category);
-//    }
+    @PutMapping("/{id}")
+    public GetCategoryDTO editar(@PathVariable UUID id, @Valid @RequestBody SaveCategoryDTO category) {
+        return servicio.edit(id, category);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> borrarCategoria(@PathVariable UUID id) {

@@ -50,21 +50,21 @@ public class CategoryServicio {
         }
     }
 
-//    public GetCategoryDTO edit(UUID id, SaveCategoryDTO category) {
-//
-//        Optional<Category> encontrada = repositorio.findById(id);
-//
-//        if (encontrada.isEmpty()) {
-//            throw new SingleEntityNotFoundException(id.toString(), Category.class);
-//        } else {
-//            return repositorio.findById(id).map(c -> {
-//                c.getName(category.getName());
-//                repositorio.save(c);
-//                return c;
-//            })
-//            .map(dtoConverter::categoryToGetCategoryDTO);
-//        }
-//    }
+    public GetCategoryDTO edit(UUID id, SaveCategoryDTO category) {
+
+        Optional<Category> encontrada = repositorio.findById(id);
+
+        if (encontrada.isEmpty()) {
+            throw new SingleEntityNotFoundException(id.toString(), Category.class);
+        } else {
+            return encontrada.map(c -> {
+                c.setName(category.getName());
+                repositorio.save(c);
+                return c;
+            })
+            .map(dtoConverter::categoryToGetCategoryDTO).get();
+        }
+    }
 
     public void deleteById(UUID id) {
         Optional<Category> encontrada = repositorio.findById(id);

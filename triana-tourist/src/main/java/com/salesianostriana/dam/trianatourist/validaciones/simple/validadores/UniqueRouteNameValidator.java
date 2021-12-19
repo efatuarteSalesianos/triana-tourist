@@ -1,20 +1,20 @@
 package com.salesianostriana.dam.trianatourist.validaciones.simple.validadores;
 
-import com.salesianostriana.dam.trianatourist.repositorios.CategoryRepositorio;
-import com.salesianostriana.dam.trianatourist.validaciones.simple.anotaciones.UniqueName;
+import com.salesianostriana.dam.trianatourist.repositorios.RouteRepositorio;
+import com.salesianostriana.dam.trianatourist.validaciones.simple.anotaciones.UniqueRouteName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class UniqueNameValidator implements ConstraintValidator<UniqueName, String> {
+public class UniqueRouteNameValidator implements ConstraintValidator<UniqueRouteName, String> {
 
     @Autowired
-    private CategoryRepositorio repositorio;
+    private RouteRepositorio repositorio;
 
     @Override
-    public void initialize(UniqueName constraintAnnotation) { }
+    public void initialize(UniqueRouteName constraintAnnotation) { }
 
     @Override
     public boolean isValid(String name, ConstraintValidatorContext context) {

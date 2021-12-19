@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface POIRepository extends JpaRepository<POI, UUID> {
+public interface POIRepositorio extends JpaRepository<POI, UUID> {
 
 }

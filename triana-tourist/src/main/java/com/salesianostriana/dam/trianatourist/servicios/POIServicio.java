@@ -6,7 +6,7 @@ import com.salesianostriana.dam.trianatourist.errores.excepciones.SingleEntityNo
 import com.salesianostriana.dam.trianatourist.modelos.Category;
 import com.salesianostriana.dam.trianatourist.modelos.POI;
 import com.salesianostriana.dam.trianatourist.repositorios.CategoryRepositorio;
-import com.salesianostriana.dam.trianatourist.repositorios.POIRepository;
+import com.salesianostriana.dam.trianatourist.repositorios.POIRepositorio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class POIServicio {
 
     private final CategoryRepositorio categoryRepositorio;
-    private final POIRepository repositorio;
+    private final POIRepositorio repositorio;
     private final POIDTOConverter dtoConverter;
 
     public GetPOIDTO save(SavePOIDTO newPOI) {
@@ -56,21 +56,26 @@ public class POIServicio {
         }
     }
 
-//    public GetCategoryDTO edit(UUID id, SaveCategoryDTO category) {
-//
-//        Optional<Category> encontrada = repositorio.findById(id);
-//
-//        if (encontrada.isEmpty()) {
-//            throw new SingleEntityNotFoundException(id.toString(), Category.class);
-//        } else {
-//            return repositorio.findById(id).map(c -> {
-//                c.getName(category.getName());
-//                repositorio.save(c);
-//                return c;
-//            })
-//            .map(dtoConverter::categoryToGetCategoryDTO);
-//        }
-//    }
+    public GetPOIDTO edit(UUID id, SavePOIDTO poi) {
+
+        Optional<POI> encontrada = repositorio.findById(id);
+
+        if (encontrada.isEmpty()) {
+            throw new SingleEntityNotFoundException(id.toString(), POI.class);
+        } else {
+            return encontrada.map(p -> {
+                p.setName(poi.getName());
+                p.setLocation(poi.getLocation());
+                p.setDescription(poi.getDescription());
+                p.setCoverPhoto(poi.getCoverPhoto());
+                p.setPhoto2(poi.getPhoto2());
+                p.setPhoto3(poi.getPhoto3());
+                repositorio.save(p);
+                return p;
+            })
+            .map(dtoConverter::poiToGetPOIDTO).get();
+        }
+    }
 
     public void deleteById(UUID id) {
         Optional<POI> sitio = repositorio.findById(id);

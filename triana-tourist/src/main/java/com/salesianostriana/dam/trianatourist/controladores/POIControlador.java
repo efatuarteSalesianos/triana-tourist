@@ -34,10 +34,10 @@ public class POIControlador {
         return servicio.findById(id);
     }
 
-//    @PutMapping("/{id}")
-//    public GetCategoryDTO editar(@PathVariable UUID id, @Valid @RequestBody SaveCategoryDTO category) {
-//        return servicio.edit(id, category);
-//    }
+    @PutMapping("/{id}")
+    public GetPOIDTO editar(@PathVariable UUID id, @Valid @RequestBody SavePOIDTO poi) {
+        return servicio.edit(id, poi);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> borrarSitio(@PathVariable UUID id) {
