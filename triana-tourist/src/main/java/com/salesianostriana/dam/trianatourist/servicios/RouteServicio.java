@@ -24,6 +24,7 @@ public class RouteServicio {
     private final RouteRepositorio repositorio;
     private final RouteDTOConverter dtoConverter;
     private final POIRepositorio poiRepositorio;
+    private final POIServicio poiServicio;
 
     public Route save(SaveRouteDTO newRoute) {
         return repositorio.save(Route.builder()
@@ -76,7 +77,7 @@ public class RouteServicio {
         } else if (repositorio.findAll().isEmpty()) {
             throw new ListEntityNotFoundException(Route.class);
         } else {
-            encontrada.get().getSteps().forEach(s -> s.removeRoute(encontrada.get()));
+            encontrada.get().getSteps().forEach(s -> removePOIFromRoute(id, s.getId()));
             repositorio.deleteById(id);
         }
     }
