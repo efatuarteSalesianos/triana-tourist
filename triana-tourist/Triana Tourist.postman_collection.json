@@ -1,0 +1,528 @@
+{
+	"info": {
+		"_postman_id": "0f927547-b89c-457e-9d05-388fae122c85",
+		"name": "Triana Tourist",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "01 - Create Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Monumentos\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/category/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "02 - List Categories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonDataCategory = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"categoryId\", jsonDataCategory[0].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/category/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "03 - Find Category By UUID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/category/{{categoryId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								"{{categoryId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "04 - Edit Category",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Azulejos\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/category/{{categoryId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								"{{categoryId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "05 - Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/category/{{categoryId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								"{{categoryId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POI",
+			"item": [
+				{
+					"name": "01 - Create POI",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Parroquia de San Jacinto\",\r\n    \"location\": \"37.383612,-6.005318\",\r\n    \"description\": \"La Iglesia de San Jacinto de Sevilla (Andalucía, España) es el templo de un convento dominico fundado en el siglo XVII. Se encuentra en la esquina de las calles San Jacinto y Pagés del Corro, en el barrio de Triana.\",\r\n    \"coverPhoto\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/San_jacinto_2016001.jpg/420px-San_jacinto_2016001.jpg\",\r\n    \"photo2\": \"https://www.lynxproaudio.com/www/home/lx-resources/uploads/2019/06/Church_SanJacinto_Triana-1000x675.jpg\",\r\n    \"photo3\": \"https://www.visitarsevilla.com/wp-content/uploads/2018/09/san-jacinto-1250x530.jpg\",\r\n    \"date\": \"1775-01-29T12:00:00.000\",\r\n    \"categoryId\": \"{{categoryId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/poi/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"poi",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "02 - List POI",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonDataPOI = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"poiID\", jsonDataPOI[0].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/poi/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"poi",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "03 - Find POI By UUID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/poi/{{poiID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"poi",
+								"{{poiID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "04 - Edit POI",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Parroquia de San Jacinto\",\r\n    \"location\": \"37.383612,-6.005318\",\r\n    \"description\": \"La Iglesia de San Jacinto de Sevilla (Andalucía, España) es el templo de un convento dominico fundado en el siglo XVII. Se encuentra en la esquina de las calles San Jacinto y Pagés del Corro, en el barrio de Triana.\",\r\n    \"coverPhoto\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/San_jacinto_2016001.jpg/420px-San_jacinto_2016001.jpg\",\r\n    \"photo2\": \"https://www.lynxproaudio.com/www/home/lx-resources/uploads/2019/06/Church_SanJacinto_Triana-1000x675.jpg\",\r\n    \"photo3\": \"https://live.staticflickr.com/2898/14200960330_55856feb33_b.jpg\",\r\n    \"date\": \"1775-01-29T12:00:00.000\",\r\n    \"categoryId\": \"{{categoryId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/poi/{{poiID}}/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"poi",
+								"{{poiID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "05 - Delete POI",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/poi/{{poiID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"poi",
+								"{{poiID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "06 - Add Category To POI",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/poi/{{poiID}}/category/{{categoryId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"poi",
+								"{{poiID}}",
+								"category",
+								"{{categoryId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "07 - Delete Category From POI",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/poi/{{poiID}}/category/{{categoryId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"poi",
+								"{{poiID}}",
+								"category",
+								"{{categoryId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Route",
+			"item": [
+				{
+					"name": "01 - Create Route",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Ruta por triana\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/route/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"route",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "02 - Get All Routes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonDataRoute = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"routeId\", jsonDataRoute[0].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/route/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"route",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "03 - Find Route By UUID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/route/{{routeId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"route",
+								"{{routeId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "04 - Edit Route",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Iglesias de Sevilla\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/route/{{routeId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"route",
+								"{{routeId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "05 - Delete Route",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/route/{{routeId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"route",
+								"{{routeId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "06 - Add POI To Route",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/route/{{routeId}}/poi/{{poiID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"route",
+								"{{routeId}}",
+								"poi",
+								"{{poiID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "07 - Delete POI From Route",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/route/{{routeId}}/poi/{{poiID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"route",
+								"{{routeId}}",
+								"poi",
+								"{{poiID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "categoryId",
+			"value": ""
+		},
+		{
+			"key": "poiID",
+			"value": ""
+		},
+		{
+			"key": "routeId",
+			"value": ""
+		}
+	]
+}

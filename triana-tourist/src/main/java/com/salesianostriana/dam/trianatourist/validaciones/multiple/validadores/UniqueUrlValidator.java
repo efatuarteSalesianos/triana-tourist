@@ -23,7 +23,7 @@ public class UniqueUrlValidator implements ConstraintValidator<UniqueUrl, Object
         Object url1Value = PropertyAccessorFactory.forBeanPropertyAccess(value).getPropertyValue(url1);
         Object url2Value = PropertyAccessorFactory.forBeanPropertyAccess(value).getPropertyValue(url2);
 
-        if (url1Value != null || url2Value != null) {
+        if (url1Value != "" || url2Value != "") {
             return !url1Value.equals(url2Value);
         } else {
             return true;
