@@ -24,7 +24,7 @@ public class POIDTOConverter {
                 .photo2(poi.getPhoto2())
                 .photo3(poi.getPhoto3())
                 .date(poi.getDate())
-                .category(poi.getCategory().getName()==null?"Sin Categoría":poi.getCategory().getName())
+                .category(poi.getCategory()==null?"Sin Categoría":poi.getCategory().getName())
                 .build();
     }
 
@@ -34,7 +34,7 @@ public class POIDTOConverter {
                 .name(poi.getName())
                 .location(poi.getLocation())
                 .coverPhoto(poi.getCoverPhoto())
-                .category(poi.getCategory().getName()==null?"Sin Categoría":poi.getCategory().getName())
+                .category(poi.getCategory()==null?"Sin Categoría":poi.getCategory().getName())
                 .build();
     }
 

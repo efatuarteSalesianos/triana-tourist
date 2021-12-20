@@ -76,7 +76,7 @@ public class CategoryServicio {
         } else if (repositorio.findAll().isEmpty()) {
             throw new ListEntityNotFoundException(Category.class);
         } else {
-            encontrada.get().getSitios().forEach(s -> s.removeCategory(encontrada.get()));
+            encontrada.get().getSitios().forEach(s -> s.setCategory(null));
             encontrada.get().getSitios().forEach(poiRepositorio::save);
             repositorio.delete(encontrada.get());
         }
