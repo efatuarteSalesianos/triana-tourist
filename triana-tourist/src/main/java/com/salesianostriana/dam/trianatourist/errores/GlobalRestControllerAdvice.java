@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.trianatourist.errores;
 
 import com.salesianostriana.dam.trianatourist.errores.excepciones.EntityNotFoundException;
+import com.salesianostriana.dam.trianatourist.errores.excepciones.ObjectInListException;
 import com.salesianostriana.dam.trianatourist.errores.modelos.ApiError;
 import com.salesianostriana.dam.trianatourist.errores.modelos.ApiSubError;
 import com.salesianostriana.dam.trianatourist.errores.modelos.ApiValidationSubError;
@@ -28,6 +29,11 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler({EntityNotFoundException.class})
     public ResponseEntity<?> handleNotFoundException(EntityNotFoundException ex, WebRequest request) {
         return buildApiError404(ex, request);
+    }
+
+    @ExceptionHandler({ObjectInListException.class})
+    public ResponseEntity<?> handleObjectInListException(ObjectInListException ex, WebRequest request) {
+        return buildApiError400(ex, request);
     }
 
     @ExceptionHandler({ConstraintViolationException.class})

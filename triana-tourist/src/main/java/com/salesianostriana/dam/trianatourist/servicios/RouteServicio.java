@@ -2,6 +2,7 @@ package com.salesianostriana.dam.trianatourist.servicios;
 
 import com.salesianostriana.dam.trianatourist.dtos.*;
 import com.salesianostriana.dam.trianatourist.errores.excepciones.ListEntityNotFoundException;
+import com.salesianostriana.dam.trianatourist.errores.excepciones.ObjectInListException;
 import com.salesianostriana.dam.trianatourist.errores.excepciones.SingleEntityNotFoundException;
 import com.salesianostriana.dam.trianatourist.modelos.Category;
 import com.salesianostriana.dam.trianatourist.modelos.POI;
@@ -80,18 +81,23 @@ public class RouteServicio {
         }
     }
 
-    public GetRouteDTO addPOIToRoute(UUID routeId, UUID poiID) {
+    public GetRouteDTO addPOIToRoute(UUID routeId, UUID poiId) {
         Optional<Route> route = repositorio.findById(routeId);
-        Optional<POI> sitio = poiRepositorio.findById(poiID);
+        Optional<POI> sitio = poiRepositorio.findById(poiId);
 
         if (route.isEmpty()) {
             throw new SingleEntityNotFoundException(routeId.toString(), Route.class);
         } else if (sitio.isEmpty()) {
-            throw new SingleEntityNotFoundException(poiID.toString(), POI.class);
+            throw new SingleEntityNotFoundException(poiId.toString(), POI.class);
         } else {
-            sitio.get().addRoute(route.get());
-            repositorio.save(route.get());
-            return route.map(dtoConverter::routeToGetRouteDTO).get();
+            if(!route.get().getSteps().contains(sitio.get())) {
+                sitio.get().addRoute(route.get());
+                repositorio.save(route.get());
+                return route.map(dtoConverter::routeToGetRouteDTO).get();
+            }
+            else {
+                throw new ObjectInListException(poiId.toString(), POI.class, Route.class);
+            }
         }
     }
 
